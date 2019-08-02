@@ -1,0 +1,47 @@
+body {
+	font-size: 18px;
+}
+.descsize {
+	width: 400px;
+	height: 150px;
+	left: 175px;
+	position: absolute;
+}
+
+#higher {
+	width: 400px;
+	height: 150px;
+	left: 175px;
+	margin-top: 135px;
+	position: absolute;
+}
+
+.background {
+	background-color: #F9C898;
+	width: 650px;
+	height: 600px;
+	position: relative;
+	border-style: solid;
+	border-width: medium;
+	line-height: 160%;
+	margin: auto;
+	margin-top: 25px;
+	padding-left: 10px;
+}
+
+input {
+	left: 175px;
+	position: absolute;
+	margin-bottom: 2px;
+}
+
+select {
+	left: 175px;
+	position: absolute;
+}
+
+button {
+	position: absolute;
+	margin-top:270px;
+	left:175px;
+}

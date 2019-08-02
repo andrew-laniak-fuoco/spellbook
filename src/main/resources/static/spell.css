@@ -1,0 +1,82 @@
+body {
+	font-size: 2vh;
+	font-family: serif;
+}
+
+h2  {
+	display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+	font-weight: bold;
+	text-decoration: underline;
+	font-size: 1em;
+}
+#spell_wrapper {
+	width: 50%;
+}
+#spell_wrapper h4  {
+	display: none;
+	margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 20px;
+    margin-right: 0;
+	text-decoration: underline;
+	font-style: italic;
+	font-weight: normal;
+	padding: 2px;
+	font-size: 0.7em;
+}
+
+a {
+	font-size: 1em;
+	text-decoration:none;
+	font-family: serif;
+}
+li {
+	margin-bottom: 25px;
+}
+
+#spell_wrapper span {
+	display: inline-block;
+	text-decoration: none;
+	font-style: normal;
+	padding: 2px;
+	margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+	margin-left: 40px;
+	font-variant: small-caps;
+	font-size: 0.9em;
+}
+#spell_wrapper h4 span {
+	margin-left: 20px;
+	font-size: 1.8vh;
+}
+
+#frame {
+	margin-left: 50%; 
+	position: fixed;
+	height: 100%;
+	overflow-y: scroll;
+	background-color: #DDD;
+	right: 0px;
+}
+
+#frame span{
+	font-variant: normal;
+	font-size: 0.8em;
+}
+
+#frame p {
+	font-size: 1em;
+}
+
+#hintbox {
+	width: 50%;
+}
+
+input {
+	width: 200px;
+}

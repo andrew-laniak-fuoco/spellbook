@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="normalize.css" rel="stylesheet" type="text/css">
+	<link href="form.css" rel="stylesheet" type="text/css">
+	<script src="spell.js" type="text/javascript"></script>
+	<meta charset="utf-8">
+	<title>New Spell</title>
+</head>
+<body>
+<div class="background" id="form">
+<!-- Form -->
+	<br><b>Spell Name</b>
+	<input type="text" id="name">
+<br><b>Spell Level</b> <select id="slevel">
+						  <option value="0">Cantrip</option>
+						  <option value="1">Level 1</option>
+						  <option value="2">Level 2</option>
+						  <option value="3">Level 3</option>
+						  <option value="4">Level 4</option>
+						  <option value="5">Level 5</option>
+						  <option value="6">Level 6</option>
+						  <option value="7">Level 7</option>
+						  <option value="8">Level 8</option>
+						  <option value="9">Level 9</option>
+					 </select>
+	<br><b>Spell School</b><select id="school">
+						  <option value="abjuration">Abjuration</option>
+						  <option value="conjuration">Conjuration</option>
+						  <option value="divination">Divination</option>
+						  <option value="enchantment">Enchantment</option>
+						  <option value="evocation">Evocation</option>
+						  <option value="illusion">Illusion</option>
+						  <option value="necromancy">Necromancy</option>
+						  <option value="transmutation">Transmutation</option>
+					 </select>
+	<br><b>Casting Time</b> <input type="text" id="time">
+	<br><b>Spell Range</b> <input type="text" id="range">
+	<br><b>Spell Components</b> <input type="text" id="comp">
+	<br><b>Duration</b> <input type="text" id="duration" required="true">
+	<br><b>Description</b> <textarea class="descsize" id="desc"></textarea>
+	<br><b style="position:relative;top:135px;">At Higher Levels</b> <textarea class="descsize" id="higher" style=""></textarea>
+	<br><button onclick="newSpell()">Add</button>
+</div>
+
+
+</body>
+</html>
