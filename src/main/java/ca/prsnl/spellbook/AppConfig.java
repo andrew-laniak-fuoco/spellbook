@@ -16,7 +16,7 @@ public class AppConfig {
 
     @Bean
     public static DataSource createDataSource() throws SQLException {
-        String url = "jdbc:postgresql://localhost/spellbook";
+        String url = System.getenv("PGURL");
         String username = System.getenv("PGUSER");
         String password = System.getenv("PGPASSWORD");
         Driver driver = DriverManager.getDriver(url);
