@@ -5,6 +5,12 @@ import ca.prsnl.spellbook.repository.dto.Spell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SpellbookService {
 
@@ -16,6 +22,7 @@ public class SpellbookService {
     }
 
     public Spell getSpell(String name) {
+        name = name.toUpperCase();
         Spell spell = spellDao.findById(name);
         if (spell == null) {
             throw new ResourceNotFoundException(name + " does not exist");
@@ -28,11 +35,33 @@ public class SpellbookService {
         if (quality != null) {
             throw new IllegalArgumentException(quality);
         }
+        spell.setName(spell.getName().toUpperCase());
         // if spell exists already, update with new information
         if (spellDao.existsById(spell.getName())) {
             return updateSpell(spell);
         } else {
             return newSpell(spell);
+        }
+    }
+
+    public List<String> getLoaders() throws IOException {
+        String dir = "src/main/resources/static/loader";
+        return Files.walk(Paths.get(dir))
+                .map(p -> p.toFile())
+                .filter(f -> f.isFile())
+                .map(file -> file.getName())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getSpellList() {
+        return spellDao.getAllNames();
+    }
+
+    public void initdb() {
+        try {
+            spellDao.loadDatabaseFromJson();
+        } catch (Exception e) {
+            throw new RuntimeException("Problem initalizing database");
         }
     }
 

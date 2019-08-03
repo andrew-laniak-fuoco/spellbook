@@ -4,7 +4,6 @@
 <head>
 	<link href="normalize.css" rel="stylesheet" type="text/css">
 	<link href="spell.css" rel="stylesheet" type="text/css">
-	<script src="spellList.js" type="text/javascript"></script>
 	<script src="spell.js" type="text/javascript"></script>
 	<meta charset="utf-8">
 	<title>Spell Book</title>
@@ -28,7 +27,7 @@
 	<!-- Spells -->
 	<div id="spell_wrapper" style="padding:10px;">
 		<h2>Abjuration</h2>
-			<div id="abjuration">
+			<div id="ABJURATION">
 				<h4>Level 0</h4>
 				<h4>Level 1</h4>
 				<h4>Level 2</h4>
@@ -41,7 +40,7 @@
 				<h4>Level 9</h4>
 			</div>
 		<h2>Conjuration</h2>
-			<div id="conjuration">
+			<div id="CONJURATION">
 				<h4>Level 0</h4>
 				<h4>Level 1</h4>
 				<h4>Level 2</h4>
@@ -54,7 +53,7 @@
 				<h4>Level 9</h4>
 			</div>
 		<h2>Divination</h2>
-			<div id="divination">
+			<div id="DIVINATION">
 				<h4>Level 0</h4>
 				<h4>Level 1</h4>
 				<h4>Level 2</h4>
@@ -67,7 +66,7 @@
 				<h4>Level 9</h4>
 			</div>
 		<h2>Enchantment</h2>
-			<div id="enchantment">
+			<div id="ENCHANTMENT">
 				<h4>Level 0</h4>
 				<h4>Level 1</h4>
 				<h4>Level 2</h4>
@@ -80,7 +79,7 @@
 				<h4>Level 9</h4>
 			</div>
 		<h2>Evocation</h2>
-			<div id="evocation">
+			<div id="EVOCATION">
 				<h4>Level 0</h4>
 				<h4>Level 1</h4>
 				<h4>Level 2</h4>
@@ -93,7 +92,7 @@
 				<h4>Level 9</h4>
 			</div>
 		<h2>Illusion</h2>
-			<div id="illusion">
+			<div id="ILLUSION">
 				<h4>Level 0</h4>
 				<h4>Level 1</h4>
 				<h4>Level 2</h4>
@@ -106,7 +105,7 @@
 				<h4>Level 9</h4>
 			</div>
 		<h2>Necromancy</h2>
-			<div id="necromancy">
+			<div id="NECROMANCY">
 				<h4>Level 0</h4>
 				<h4>Level 1</h4>
 				<h4>Level 2</h4>
@@ -119,7 +118,7 @@
 				<h4>Level 9</h4>
 			</div>
 		<h2>Transmutation</h2>
-			<div id="transmutation">
+			<div id="TRANSMUTATION">
 				<h4>Level 0</h4>
 				<h4>Level 1</h4>
 				<h4>Level 2</h4>
@@ -136,13 +135,11 @@
 	<button onclick="learnSpell(exe.value)">Add</button>
 	<button onclick="display(exe.value)">Display</button>
 	<p>Suggestions: <span id="txtHint"></span></p>
-	<p>Load: 
+<!--	<p>Load:
 	<select id="loader">
-		<option value="erik.json">Erik</option>
-		<option value="drozd.json">Drozd</option>
 	</select>
-	<button onclick="access(loader.value, populate)">Add</button></p>
-	<a href="form.html"><p color>Enter new spell</p></a>
+	<button onclick="writeLoader(loader.value, populate)">Add</button></p>
+	<a href="form.html"><p>Enter new spell</p></a>-->
 </div>
 </body>
 </html>

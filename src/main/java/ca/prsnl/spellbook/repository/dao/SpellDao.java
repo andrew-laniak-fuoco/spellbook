@@ -3,6 +3,8 @@ package ca.prsnl.spellbook.repository.dao;
 import ca.prsnl.spellbook.AppConfig;
 import ca.prsnl.spellbook.repository.dto.Spell;
 import ca.prsnl.spellbook.util.JSONFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -16,9 +18,16 @@ import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class SpellDao {
+
+    private Logger log = LoggerFactory.getLogger(SpellDao.class);
 
     private static final String UPDATE = "UPDATE spell SET school=?,slevel=?,range=?," +
             "cast_time=?,comp=?,duration=?,sdesc=?,higher=? WHERE name=?";
@@ -49,6 +58,7 @@ public class SpellDao {
         Spell spell = null;
         try {
             String statement = "select * from " + getTableName() + " where " + getPrimaryKey() + " = ?";
+            log.info("SQL select: " + statement);
             spell = (Spell) jdbcTemplate.queryForObject(statement, BeanPropertyRowMapper.newInstance(getDtoClass()), id);
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
@@ -112,6 +122,20 @@ public class SpellDao {
         return spell;
     }
 
+    public List<String> getAllNames() {
+        List<String> nameList = new ArrayList<>();
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT name FROM spell")) {
+            ResultSet rset = statement.executeQuery();
+            while (rset.next()) {
+                nameList.add(rset.getString("name"));
+            }
+            return nameList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nameList;
+    }
+
     private String getTableName() {
         return "spell";
     }
@@ -138,15 +162,14 @@ public class SpellDao {
         return array;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void loadDatabaseFromJson() throws SQLException, IOException {
         DataSource ds = AppConfig.createDataSource();
         SpellDao dao = new SpellDao(ds);
         String json = readFile("src/main/resources/spellList.json");
         Spell[] spells = JSONFilter.toObjectFromJson(json, Spell[].class);
-        //System.out.println(spells.length);
         for (Spell s : spells) {
-            //System.out.println(JSONFilter.toJson(spells[0],true,true));
-            //dao.create(s);
+            s.setName(s.getName().toUpperCase());
+            dao.create(s);
         }
     }
 
