@@ -162,15 +162,17 @@ public class SpellDao {
         return array;
     }
 
-    public static void loadDatabaseFromJson() throws SQLException, IOException {
-        DataSource ds = AppConfig.createDataSource();
-        SpellDao dao = new SpellDao(ds);
-        String json = readFile("src/main/resources/spellList.json");
-        Spell[] spells = JSONFilter.toObjectFromJson(json, Spell[].class);
-        for (Spell s : spells) {
-            s.setName(s.getName().toUpperCase());
-            dao.create(s);
-        }
+    public void loadDatabaseFromJson()  {
+        try {
+            String json = readFile("src/main/resources/spellList.json");
+            Spell[] spells = JSONFilter.toObjectFromJson(json, Spell[].class);
+            for (Spell s : spells) {
+                s.setName(s.getName().toUpperCase());
+                create(s);
+            }
+        } catch (IOException e) {
+        throw new RuntimeException("Problem initalizing database");
+    }
     }
 
     private static String readFile(String file) throws IOException {

@@ -58,11 +58,7 @@ public class SpellbookService {
     }
 
     public void initdb() {
-        try {
             spellDao.loadDatabaseFromJson();
-        } catch (Exception e) {
-            throw new RuntimeException("Problem initalizing database");
-        }
     }
 
     private Spell newSpell(Spell spell) {

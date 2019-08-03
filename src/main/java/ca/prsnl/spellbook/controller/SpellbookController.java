@@ -45,6 +45,7 @@ public class SpellbookController {
         try {
             return service.getSpellList();
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             throw ResponseExceptionUtil.getResponseStatusException(e);
         }
     }
@@ -57,6 +58,7 @@ public class SpellbookController {
         try {
             return service.getLoaders();
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             throw ResponseExceptionUtil.getResponseStatusException(e);
         }
     }
@@ -68,6 +70,7 @@ public class SpellbookController {
         try {
             return service.insertSpell(spell);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             throw ResponseExceptionUtil.getResponseStatusException(e);
         }
     }
@@ -75,9 +78,11 @@ public class SpellbookController {
     @PutMapping(path = "/init/database")
     @ResponseStatus(HttpStatus.OK)
     public void initalizeDatabase() {
+        log.info("Operating on path /init/database");
         try {
             service.initdb();
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             throw ResponseExceptionUtil.getResponseStatusException(e);
         }
     }
