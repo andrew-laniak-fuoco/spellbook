@@ -55,6 +55,36 @@ public class Spell {
         this.school = school;
     }
 
+    public void setSchool(String str) {
+        str = str.toUpperCase();
+        switch (str) {
+            case "ABJURATION":
+                this.school = School.ABJURATION;
+                break;
+            case "CONJURATION":
+                this.school = School.CONJURATION;
+                break;
+            case "DIVINATION":
+                this.school = School.DIVINATION;
+                break;
+            case "ENCHANTMENT":
+                this.school = School.ENCHANTMENT;
+                break;
+            case "EVOCATION":
+                this.school = School.EVOCATION;
+                break;
+            case "ILLUSION":
+                this.school = School.ILLUSION;
+                break;
+            case "NECROMANCY":
+                this.school = School.NECROMANCY;
+                break;
+            case "TRANSMUTATION":
+                this.school = School.TRANSMUTATION;
+                break;
+        }
+    }
+
     public int getSlevel() {
         return slevel;
     }

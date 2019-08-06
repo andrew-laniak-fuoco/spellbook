@@ -2,15 +2,6 @@
 
 var ajax;
 var acallback = null;
-function spellSearcher(spellName, callback) {
-    acallback = callback
-	ajax = new XMLHttpRequest();
-	ajax.onreadystatechange = ajaxProcess;
-	spellName = spellName.toUpperCase();
-	ajax.open("GET", "/read/" + spellName);
-	ajax.send();
-}
-
 function ajaxProcess() {
 	if((ajax.readyState == 4)&&(ajax.status == 200)){
 		ajaxCompleted(ajax.responseText);
@@ -25,32 +16,31 @@ function ajaxCompleted(text) {
 	}
 }
 
-function getSpellNames(callback) {
-    //acallback = callback
+function spellSearcher(spellName, callback) {
+    acallback = callback
 	ajax = new XMLHttpRequest();
 	ajax.onreadystatechange = ajaxProcess;
-	ajax.open("GET", "/read/list", false);
+	spellName = spellName.toUpperCase();
+	ajax.open("GET", "/spell/read/" + spellName);
+	ajax.send();
+}
+
+function getSpellNames(callback) {
+	ajax = new XMLHttpRequest();
+	ajax.onreadystatechange = ajaxProcess;
+	ajax.open("GET", "/spell/read/list", false);
 	ajax.send();
 	var data = JSON.parse(ajax.responseText);
 	callback(data);
 }
 
 function getLoaders(callback) {
-    //acallback = callback
     ajax = new XMLHttpRequest();
     ajax.onreadystatechange = ajaxProcess;
-    ajax.open("GET", "/read/loaders", false);
+    ajax.open("GET", "/init/loaders", false);
     ajax.send();
     var data = JSON.parse(ajax.responseText);
     callback(data);
-}
-
-function writeLoader(file, callback) {
-	acallback = callback;
-	ajax = new XMLHttpRequest();
-	ajax.onreadystatechange = ajaxProcess;
-	ajax.open("GET", "/loader/" + file);
-	ajax.send();
 }
 
 function learnSpell(spellName) {
@@ -169,7 +159,7 @@ function setList(list) {
 var spellList = null;
 function init() {
     hider();
-    //getLoaderList();
+    getLoaderList();
     getList();
 }
 

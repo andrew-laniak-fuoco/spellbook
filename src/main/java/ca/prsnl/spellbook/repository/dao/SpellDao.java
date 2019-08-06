@@ -1,7 +1,7 @@
 package ca.prsnl.spellbook.repository.dao;
 
-import ca.prsnl.spellbook.AppConfig;
 import ca.prsnl.spellbook.repository.dto.Spell;
+import ca.prsnl.spellbook.util.FileToString;
 import ca.prsnl.spellbook.util.JSONFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +15,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -122,12 +121,12 @@ public class SpellDao {
         return spell;
     }
 
-    public List<String> getAllNames() {
+    public List<String> getAllKeys() {
         List<String> nameList = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT name FROM spell")) {
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT " + getPrimaryKey() + " FROM " + getTableName())) {
             ResultSet rset = statement.executeQuery();
             while (rset.next()) {
-                nameList.add(rset.getString("name"));
+                nameList.add(rset.getString(getPrimaryKey()));
             }
             return nameList;
         } catch (SQLException e) {
@@ -160,36 +159,5 @@ public class SpellDao {
         array[7] = entity.getHigher();
         array[8] = entity.getName();
         return array;
-    }
-
-    public void loadDatabaseFromJson()  {
-        try {
-            String json = readFile("src/main/resources/spellList.json");
-            Spell[] spells = JSONFilter.toObjectFromJson(json, Spell[].class);
-            for (Spell s : spells) {
-                s.setName(s.getName().toUpperCase());
-                create(s);
-            }
-        } catch (IOException e) {
-        throw new RuntimeException("Problem initalizing database");
-    }
-    }
-
-    private static String readFile(String file) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String line = null;
-        StringBuilder stringBuilder = new StringBuilder();
-        String ls = System.getProperty("line.separator");
-
-        try {
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-                stringBuilder.append(ls);
-            }
-
-            return stringBuilder.toString();
-        } finally {
-            reader.close();
-        }
     }
 }

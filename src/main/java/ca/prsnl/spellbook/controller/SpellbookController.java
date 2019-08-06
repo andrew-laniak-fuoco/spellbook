@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/spell")
 public class SpellbookController {
 
     private Logger log = LoggerFactory.getLogger(SpellbookController.class);
 
-    private SpellbookService service;
+    private SpellbookService spellService;
 
     @Autowired
     public SpellbookController(SpellbookService sbs) {
-        this.service = sbs;
+        this.spellService = sbs;
     }
 
     @GetMapping(path = "/read/{name}")
@@ -31,7 +31,7 @@ public class SpellbookController {
     public Spell readSpell(@PathVariable String name) {
         log.info("Operating on path /read/" + name);
         try {
-            return service.getSpell(name);
+            return spellService.getSpell(name);
         } catch (Exception e) {
             throw ResponseExceptionUtil.getResponseStatusException(e);
         }
@@ -43,20 +43,7 @@ public class SpellbookController {
     public List<String> readNames() {
         log.info("Operating on path /read/list");
         try {
-            return service.getSpellList();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            throw ResponseExceptionUtil.getResponseStatusException(e);
-        }
-    }
-
-    @GetMapping(path = "/read/loaders")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<String> fileNames() {
-        log.info("Operating on path /read/loaders");
-        try {
-            return service.getLoaders();
+            return spellService.getSpellList();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw ResponseExceptionUtil.getResponseStatusException(e);
@@ -68,19 +55,7 @@ public class SpellbookController {
     @ResponseBody
     public Spell insertSpell(@RequestBody Spell spell) {
         try {
-            return service.insertSpell(spell);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            throw ResponseExceptionUtil.getResponseStatusException(e);
-        }
-    }
-
-    @PutMapping(path = "/init/database")
-    @ResponseStatus(HttpStatus.OK)
-    public void initalizeDatabase() {
-        log.info("Operating on path /init/database");
-        try {
-            service.initdb();
+            return spellService.insertSpell(spell);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw ResponseExceptionUtil.getResponseStatusException(e);

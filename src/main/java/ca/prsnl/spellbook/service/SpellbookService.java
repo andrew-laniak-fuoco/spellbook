@@ -2,10 +2,13 @@ package ca.prsnl.spellbook.service;
 
 import ca.prsnl.spellbook.repository.dao.SpellDao;
 import ca.prsnl.spellbook.repository.dto.Spell;
+import ca.prsnl.spellbook.util.FileToString;
+import ca.prsnl.spellbook.util.JSONFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -21,6 +24,12 @@ public class SpellbookService {
         this.spellDao = dao;
     }
 
+    /**
+     * Searches the database for a spell with a primary key equal to the parameter name
+     *
+     * @param name - primary key for the spell
+     * @return - a spell DTO
+     */
     public Spell getSpell(String name) {
         name = name.toUpperCase();
         Spell spell = spellDao.findById(name);
@@ -30,6 +39,16 @@ public class SpellbookService {
         return spell;
     }
 
+    /**
+     * Inserts a spell into the database.
+     * If the primary key is already present within the database, it's data
+     * will be updated with the new fields
+     * If the primary key is not present within the database then a new record
+     * will be created.
+     *
+     * @param spell - a spell DTO holding the data to insert into the database
+     * @return - a spell DTO representing the new or updated row
+     */
     public Spell insertSpell(Spell spell) {
         String quality = qualityCheck(spell);
         if (quality != null) {
@@ -44,21 +63,8 @@ public class SpellbookService {
         }
     }
 
-    public List<String> getLoaders() throws IOException {
-        String dir = "src/main/resources/static/loader";
-        return Files.walk(Paths.get(dir))
-                .map(p -> p.toFile())
-                .filter(f -> f.isFile())
-                .map(file -> file.getName())
-                .collect(Collectors.toList());
-    }
-
     public List<String> getSpellList() {
-        return spellDao.getAllNames();
-    }
-
-    public void initdb() {
-            spellDao.loadDatabaseFromJson();
+        return spellDao.getAllKeys();
     }
 
     private Spell newSpell(Spell spell) {
