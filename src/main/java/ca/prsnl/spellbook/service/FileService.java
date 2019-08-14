@@ -54,7 +54,9 @@ public class FileService {
             LongSpell[] spells = JSONFilter.toObjectFromJson(json, LongSpell[].class);
             for (LongSpell s : spells) {
                 Spell newSpell = longSpelltoSpell(s);
-                spellDao.create(newSpell);
+                if (!spellDao.existsById(newSpell.getName())) {
+                    spellDao.create(newSpell);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException("Problem initalizing database");
