@@ -37,7 +37,7 @@ public class InitalizerController {
         }
     }
 
-    @PutMapping(path = "/init/database")
+    @PutMapping(path = "/database")
     @ResponseStatus(HttpStatus.OK)
     public void initalizeDatabase() {
         log.info("Operating on path /init/database");
