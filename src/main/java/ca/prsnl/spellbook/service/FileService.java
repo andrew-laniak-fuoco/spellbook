@@ -85,10 +85,14 @@ public class FileService {
             description += "\n";
         }
         spell.setSdesc(description);
-        String higher = "";
-        for (String s : longSpell.getHigherLevel()) {
-            higher += s;
-            higher += "\n";
+
+        String higher = null;
+        if (longSpell.getHigherLevel() != null) {
+            higher = "";
+            for (String s : longSpell.getHigherLevel()) {
+                higher += s;
+                higher += "\n";
+            }
         }
         spell.setHigher(higher);
 
