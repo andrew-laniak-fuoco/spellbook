@@ -1,5 +1,6 @@
 package ca.prsnl.spellbook.controller;
 
+import ca.prsnl.spellbook.repository.dto.Spell;
 import ca.prsnl.spellbook.service.FileService;
 import ca.prsnl.spellbook.util.ResponseExceptionUtil;
 import org.slf4j.Logger;
@@ -43,6 +44,19 @@ public class InitalizerController {
         log.info("Operating on path /init/database");
         try {
             fileService.loadDatabaseFromFile("/5e-SRD-Spells.json");
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw ResponseExceptionUtil.getResponseStatusException(e);
+        }
+    }
+
+    @GetMapping(path = "/read/all")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<Spell> readAll() {
+        log.info("Operating on path /read/all");
+        try {
+            return fileService.getEverything();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw ResponseExceptionUtil.getResponseStatusException(e);

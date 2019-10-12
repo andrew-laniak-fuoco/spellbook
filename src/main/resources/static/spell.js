@@ -34,6 +34,15 @@ function getSpellNames(callback) {
 	callback(data);
 }
 
+function getSpells(callback) {
+	ajax = new XMLHttpRequest();
+	ajax.onreadystatechange = ajaxProcess;
+	ajax.open("GET", "/init/read/all", false);
+	ajax.send();
+	//var data = JSON.parse(ajax.responseText);
+	callback(ajax.responseText);
+}
+
 function getLoaders(callback) {
     ajax = new XMLHttpRequest();
     ajax.onreadystatechange = ajaxProcess;
@@ -154,6 +163,19 @@ function getList() {
 
 function setList(list) {
     spellList = list;
+}
+
+function exportSpells() {
+    getSpells(downloadSpells)
+}
+
+function downloadSpells(json) {
+    var txtfile = "/tmp/spells.json";
+    var file = new File(txtfile,"write");
+
+    file.open();
+    file.writeline(json);
+    file.close();
 }
 
 var spellList = null;

@@ -135,6 +135,20 @@ public class SpellDao {
         return nameList;
     }
 
+    public List<Spell> getAllSpells() {
+        List<Spell> spellList = new ArrayList<>();
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT " + getPrimaryKey() + " FROM " + getTableName())) {
+            ResultSet rset = statement.executeQuery();
+            while (rset.next()) {
+                spellList.add(findById(rset.getString(getPrimaryKey())));
+            }
+            return spellList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return spellList;
+    }
+
     private String getTableName() {
         return "spell";
     }

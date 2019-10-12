@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,6 +62,10 @@ public class FileService {
         } catch (IOException e) {
             throw new RuntimeException("Problem initalizing database");
         }
+    }
+
+    public List<Spell> getEverything() {
+        return spellDao.getAllSpells();
     }
 
     private Spell longSpelltoSpell(LongSpell longSpell) {
